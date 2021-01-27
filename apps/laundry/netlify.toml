@@ -1,0 +1,34 @@
+# Settings in the [build] context are global and are applied to all contexts
+# unless otherwise overridden by more specific contexts.
+[build]
+  base = ''
+  publish = '__sapper__/export'
+  command = 'yarn export'
+  environment = { NODE_ENV = 'development'}
+
+[context.production]
+  environment = { NODE_ENV = 'production'}
+
+[[redirects]]
+  from = '/*'
+  to = '/index.html'
+  status = 200
+
+[[headers]]
+  # Define which paths this specific [[headers]] block will cover.
+  for = '/*'
+  [headers.values]
+    Strict-Transport-Security = 'max-age=63072000; includeSubDomains; preload'
+    X-Frame-Options = 'DENY'
+    X-Content-Type-Options = 'nosniff'
+    X-XSS-Protection = '1; mode=block'
+    Cache-Control = 'public, max-age=86400, s-maxage=86400, immutable'
+    Referrer-Policy = 'same-origin'
+    Feature-Policy = "accelerometer 'none'; ambient-light-sensor 'none'; autoplay 'none'; camera 'none'; encrypted-media 'none'; focus-without-user-activation 'none'; fullscreen 'none'; geolocation 'none'; gyroscope 'none'; magnetometer 'none'; microphone 'none'; midi 'none'; payment 'none'; picture-in-picture 'none'; speaker 'none'; sync-xhr 'none'; usb  'none'; vr 'none';"
+    Permissions-Policy = 'accelerometer=(); ambient-light-sensor=(); autoplay=(); camera=(); encrypted-media=(); focus-without-user-activation=(); fullscreen=(); geolocation=(); gyroscope=(); magnetometer=(); microphone=(); midi=(); payment=(); picture-in-picture=(); speaker=(); sync-xhr=(); usb =(); vr=();'
+
+[[headers]]
+  # Define which paths this specific [[headers]] block will cover.
+  for = '/manifest.json'
+  [headers.values]
+    Cache-Control = 'max-age=0, s-maxage=0, no-store, no-cache'
