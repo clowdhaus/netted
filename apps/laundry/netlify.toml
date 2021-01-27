@@ -2,12 +2,13 @@
 # unless otherwise overridden by more specific contexts.
 [build]
   base = ''
-  publish = '__sapper__/export'
   command = 'yarn export'
-  environment = { NODE_ENV = 'development'}
+  publish = '__sapper__/export'
+
+[build.environment]
+  NETLIFY_USE_YARN = 'true'
 
 [context.production]
-  environment = { NODE_ENV = 'production'}
 
 [[redirects]]
   from = '/*'
